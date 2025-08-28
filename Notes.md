@@ -21,7 +21,9 @@
 - Only loading the code for the page you request also means that pages become isolated. If a certain page throws an error, the rest of the application would still work.
 - in a production build of Next.js, whenever Link components appear in the browser’s viewport, Next.js automatically prefetches the code for the linked page in the background. By the time you click the link, the code for the destination page will already be loaded in the background, and the page transition will be near-instant!
 
-``` Next.js automatically optimizes your application for the best performance by code splitting, client-side navigation, and prefetching (in production). ```
+```
+ Next.js automatically optimizes your application for the best performance by code splitting, client-side navigation, and prefetching (in production). 
+```
 
 ### CSS Modules
 - It automatically generates unique class names. As long as you use CSS Modules, you don’t have to worry about class name collisions.
@@ -40,7 +42,9 @@
 # Creating the markdown files
 - You might have noticed that each markdown file has a metadata section at the top containing title and date. This is called YAML Front Matter, which can be parsed using a library called gray-matter.
 -First, install gray-matter which lets us parse the metadata in each markdown file.
-``` npm install gray-matter ```
+``` 
+npm install gray-matter 
+```
 
 ## Fetching data
 - Next.js data fetching method is called **getStaticProps()**.
@@ -84,7 +88,9 @@ export async function getStaticProps() {
 ```
 
 2. Fetch External API or Query Database
-``` https://nextjs.org/learn/pages-router/data-fetching-getstaticprops-details ```
+``` 
+https://nextjs.org/learn/pages-router/data-fetching-getstaticprops-details 
+```
 
 ### Development vs. Production
 - In development (npm run dev or yarn dev), getStaticProps runs on every request.
@@ -94,7 +100,9 @@ export async function getStaticProps() {
 - Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive.
 - If you want to shows updated data and the page content changes on every request,In that case, you can use Server-side Rendering. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate frequently updated data. 
 
-``` Note: In development mode (when you run npm run dev or yarn dev), pages are pre-rendered on every request. This also applies to Static Generation to make it easier to develop. When going to production, Static Generation will happen once, at build time, and not on every request. ```
+``` 
+Note: In development mode (when you run npm run dev or yarn dev), pages are pre-rendered on every request. This also applies to Static Generation to make it easier to develop. When going to production, Static Generation will happen once, at build time, and not on every request.
+ ```
 
 # Server-Side Rendering
 ## Fetching Data at Request Time
@@ -108,3 +116,14 @@ export async function getServerSideProps(context) {
   };
 } 
 ```
+
+## SWR
+- If you’re fetching data on the client side,.
+- It handles caching, revalidation, focus tracking, refetching on interval, and more.
+
+# How to Statically Generate Pages with Dynamic Routes
+- Create a [id].js file 
+- this page must contain following:
+    1. A react component to render this page
+    2. **getStaticPaths()** which returns an array of possible values for **id**
+    3. **getStaticProps()** which fetches necessary data for the post with **id**
