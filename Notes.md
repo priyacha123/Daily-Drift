@@ -127,3 +127,30 @@ export async function getServerSideProps(context) {
     1. A react component to render this page
     2. **getStaticPaths()** which returns an array of possible values for **id**
     3. **getStaticProps()** which fetches necessary data for the post with **id**
+
+        ### Development vs. Production
+        - In development (npm run dev or yarn dev), getStaticPaths runs on     every request.
+        - In production, getStaticPaths runs at build time.
+
+# Fallback    
+- If fallback is false, then any paths not returned by getStaticPaths will result in a 404 page.
+- If fallback is true, then the behavior of getStaticProps changes:
+    - The paths returned from getStaticPaths will be rendered to HTML at build time.
+    - The paths that have not been generated at build time will not result in a 404 page. Instead, Next.js will serve a "fallback" version of the page on the first request to such a path.
+    - In the background, Next.js will statically generate the requested path. Subsequent requests to the same path will serve the generated page, just like other pages pre-rendered at build time.
+- If fallback is blocking, then new paths will be server-side rendered with getStaticProps, and cached for future requests so it only happens once per path.
+
+# API Routes
+- **API Routes** create an API endpoint by creating a function inside **pages/api** directory and then create a file in this api directory.
+- They can be deployed as Serverless Functions (also known as Lambdas).
+- You should not fetch an API Route from getStaticProps or getStaticPaths. because they only run on server-side and will never run on client-side.  
+- Instead, write your server-side code directly in getStaticProps or getStaticPaths (or call a helper function).
+
+- Example: API : {"text":"Hello"}
+```
+export default function handler(req, res) {
+  res.status(200).json({ text: 'Hello' });
+}
+```
+- **req** is an instance of http.IncomingMessage, plus some pre-built middlewares.
+- **res** is an instance of http.ServerResponse, plus some helper functions.
